@@ -1,0 +1,61 @@
+﻿{
+  "Id": 0,
+  "Servers": [
+    {
+      "Id": 0,
+      "Enabled": false,
+      "Name": "Node.js",
+      "Url": "http://jenkins.node.org/",
+      "Jobs": [
+        {
+          "Id": 0,
+          "Enabled": false,
+          "Description": "node job 1 description",
+          "DisplayName": "node job 1",
+          "Status": 0,
+          "InProgress": false,
+          "WebColor": "BLUE"
+        },
+        {
+          "Id": 0,
+          "Enabled": false,
+          "Description": "node job 2 description",
+          "DisplayName": "node job 2",
+          "Status": 0,
+          "InProgress": false,
+          "WebColor": "BLUE"
+        }
+      ]
+    },
+    {
+      "Id": 0,
+      "Enabled": false,
+      "Name": "project alpha",
+      "Url": "http://example.com/",
+      "Jobs": [
+        {
+          "Id": 0,
+          "Enabled": false,
+          "Description": "alpha job 1 description",
+          "DisplayName": "alpha job 1",
+          "Status": 0,
+          "InProgress": false,
+          "WebColor": "BLUE"
+        },
+        {
+          "Id": 0,
+          "Enabled": false,
+          "Description": "alpha job 2 description",
+          "DisplayName": "alpha job 2",
+          "Status": 0,
+          "InProgress": false,
+          "WebColor": "BLUE"
+        }
+      ]
+    }
+  ],
+  "EnableNotifications": true,
+  "EnableSounds": true,
+  "AlertOnChangesOnly": true,
+  "PollingPeriod": 1
+}

@@ -1,0 +1,72 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\Newtonsoft.Json.dll" #>
+<#@ assembly name="$(ProjectDir)bin\Debug\Contracts.dll" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="Newtonsoft.Json" #>
+<#@ import namespace="Contracts" #>
+<#@ output extension=".xaml" #>
+<#
+
+var data = JsonConvert.DeserializeObject<ObserverSettings>(File.ReadAllText(Path.ChangeExtension(Host.TemplateFile,".json")));
+
+Convert(data);
+#>
+<#+
+void Convert(object data, bool assembly = true, int tabs = 0) 
+{
+	Type type = data.GetType();
+
+#>
+<#+Tabs(tabs);#><c:<#= type.Name #><#+ if(assembly) {#> xmlns:c="clr-namespace:<#= type.Namespace #>;assembly=<#= type.Assembly.GetName().Name #>"<#+ } #>>
+<#+
+
+	foreach(var prop in type.GetProperties(BindingFlags.Public | BindingFlags.Instance).Where((p)=>p.CanWrite)) 
+	{
+		Type innerEnumerable = GetEnumerableType(prop.PropertyType);
+		var val = prop.GetValue(data);
+		if(innerEnumerable == null || prop.PropertyType == typeof(string))
+		{
+			if(val != null)
+			{
+#>
+<#+Tabs(tabs+2);#><c:<#= type.Name #>.<#= prop.Name #>><#= val #></c:<#= type.Name #>.<#= prop.Name #>>
+<#+
+			}
+		}
+		else 
+		{
+#>
+<#+Tabs(tabs+2);#><c:<#= type.Name #>.<#= prop.Name #>>
+<#+
+			foreach(var v in val as IEnumerable)
+				Convert(v, false, tabs + 4);
+#>
+<#+Tabs(tabs+2);#></c:<#= type.Name #>.<#= prop.Name #>>
+<#+
+		}
+	}
+#>
+<#+Tabs(tabs);#></c:<#= type.Name #>>
+<#+
+}
+
+void Tabs(int tabs) {
+	for(int x = 0; x<tabs; x++) {#> <#+}
+}
+
+Type GetEnumerableType(Type type) {
+    foreach (Type intType in type.GetInterfaces()) {
+        if (intType.IsGenericType
+            && intType.GetGenericTypeDefinition() == typeof(IEnumerable<>)) {
+            return intType.GetGenericArguments()[0];
+        }
+    }
+    return null;
+}
+#>

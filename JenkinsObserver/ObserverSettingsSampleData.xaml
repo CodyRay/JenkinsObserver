@@ -1,0 +1,57 @@
+﻿<c:ObserverSettings xmlns:c="clr-namespace:Contracts;assembly=Contracts">
+  <c:ObserverSettings.Id>0</c:ObserverSettings.Id>
+  <c:ObserverSettings.Servers>
+    <c:ObserverServer>
+      <c:ObserverServer.Id>0</c:ObserverServer.Id>
+      <c:ObserverServer.Enabled>False</c:ObserverServer.Enabled>
+      <c:ObserverServer.Name>Node.js</c:ObserverServer.Name>
+      <c:ObserverServer.Url>http://jenkins.node.org/</c:ObserverServer.Url>
+      <c:ObserverServer.Jobs>
+        <c:ObserverJob>
+          <c:ObserverJob.Id>0</c:ObserverJob.Id>
+          <c:ObserverJob.Enabled>False</c:ObserverJob.Enabled>
+          <c:ObserverJob.Description>node job 1 description</c:ObserverJob.Description>
+          <c:ObserverJob.DisplayName>node job 1</c:ObserverJob.DisplayName>
+          <c:ObserverJob.Status>Unknown</c:ObserverJob.Status>
+          <c:ObserverJob.InProgress>False</c:ObserverJob.InProgress>
+        </c:ObserverJob>
+        <c:ObserverJob>
+          <c:ObserverJob.Id>0</c:ObserverJob.Id>
+          <c:ObserverJob.Enabled>False</c:ObserverJob.Enabled>
+          <c:ObserverJob.Description>node job 2 description</c:ObserverJob.Description>
+          <c:ObserverJob.DisplayName>node job 2</c:ObserverJob.DisplayName>
+          <c:ObserverJob.Status>Unknown</c:ObserverJob.Status>
+          <c:ObserverJob.InProgress>False</c:ObserverJob.InProgress>
+        </c:ObserverJob>
+      </c:ObserverServer.Jobs>
+    </c:ObserverServer>
+    <c:ObserverServer>
+      <c:ObserverServer.Id>0</c:ObserverServer.Id>
+      <c:ObserverServer.Enabled>False</c:ObserverServer.Enabled>
+      <c:ObserverServer.Name>project alpha</c:ObserverServer.Name>
+      <c:ObserverServer.Url>http://example.com/</c:ObserverServer.Url>
+      <c:ObserverServer.Jobs>
+        <c:ObserverJob>
+          <c:ObserverJob.Id>0</c:ObserverJob.Id>
+          <c:ObserverJob.Enabled>False</c:ObserverJob.Enabled>
+          <c:ObserverJob.Description>alpha job 1 description</c:ObserverJob.Description>
+          <c:ObserverJob.DisplayName>alpha job 1</c:ObserverJob.DisplayName>
+          <c:ObserverJob.Status>Unknown</c:ObserverJob.Status>
+          <c:ObserverJob.InProgress>False</c:ObserverJob.InProgress>
+        </c:ObserverJob>
+        <c:ObserverJob>
+          <c:ObserverJob.Id>0</c:ObserverJob.Id>
+          <c:ObserverJob.Enabled>False</c:ObserverJob.Enabled>
+          <c:ObserverJob.Description>alpha job 2 description</c:ObserverJob.Description>
+          <c:ObserverJob.DisplayName>alpha job 2</c:ObserverJob.DisplayName>
+          <c:ObserverJob.Status>Unknown</c:ObserverJob.Status>
+          <c:ObserverJob.InProgress>False</c:ObserverJob.InProgress>
+        </c:ObserverJob>
+      </c:ObserverServer.Jobs>
+    </c:ObserverServer>
+  </c:ObserverSettings.Servers>
+  <c:ObserverSettings.EnableNotifications>True</c:ObserverSettings.EnableNotifications>
+  <c:ObserverSettings.EnableSounds>True</c:ObserverSettings.EnableSounds>
+  <c:ObserverSettings.AlertOnChangesOnly>True</c:ObserverSettings.AlertOnChangesOnly>
+  <c:ObserverSettings.PollingPeriod>1</c:ObserverSettings.PollingPeriod>
+</c:ObserverSettings>
