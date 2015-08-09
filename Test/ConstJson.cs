@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JenkinsObserver.Test
+﻿namespace JenkinsObserver.Test
 {
     public static class ConstJson
     {
         public const string NODEJS_SERVER_NORMAL =
 
         #region Json
+
  @"{
   ""assignedLabels"" : [
     {
-      
     }
   ],
   ""mode"" : ""NORMAL"",
@@ -40,7 +34,6 @@ namespace JenkinsObserver.Test
     }
   ],
   ""overallLoad"" : {
-    
   },
   ""primaryView"" : {
     ""name"" : ""All"",
@@ -49,7 +42,6 @@ namespace JenkinsObserver.Test
   ""quietingDown"" : false,
   ""slaveAgentPort"" : 0,
   ""unlabeledLoad"" : {
-    
   },
   ""useCrumbs"" : false,
   ""useSecurity"" : true,
@@ -68,7 +60,8 @@ namespace JenkinsObserver.Test
     }
   ]
 }";
-        #endregion
+
+        #endregion Json
 
         public const string NODEJS_JOB1_NORMAL =
 
@@ -77,13 +70,10 @@ namespace JenkinsObserver.Test
  @"{
   ""actions"" : [
     {
-      
     },
     {
-      
     },
     {
-      
     }
   ],
   ""description"" : """",
@@ -159,22 +149,19 @@ namespace JenkinsObserver.Test
   ""nextBuildNumber"" : 257,
   ""property"" : [
     {
-      
     },
     {
-      
     }
   ],
   ""queueItem"" : null,
   ""concurrentBuild"" : false,
   ""downstreamProjects"" : [
-    
+
   ],
   ""scm"" : {
-    
   },
   ""upstreamProjects"" : [
-    
+
   ],
   ""activeConfigurations"" : [
     {
@@ -200,21 +187,19 @@ namespace JenkinsObserver.Test
   ]
 }";
 
-        #endregion
+        #endregion Json
 
         public const string NODEJS_JOB2_NORMAL =
 
         #region Json
+
  @"{
   ""actions"" : [
     {
-      
     },
     {
-      
     },
     {
-      
     }
   ],
   ""description"" : """",
@@ -289,22 +274,19 @@ namespace JenkinsObserver.Test
   ""nextBuildNumber"" : 256,
   ""property"" : [
     {
-      
     },
     {
-      
     }
   ],
   ""queueItem"" : null,
   ""concurrentBuild"" : false,
   ""downstreamProjects"" : [
-    
+
   ],
   ""scm"" : {
-    
   },
   ""upstreamProjects"" : [
-    
+
   ],
   ""activeConfigurations"" : [
     {
@@ -319,21 +301,20 @@ namespace JenkinsObserver.Test
     }
   ]
 }";
-        #endregion
+
+        #endregion Json
 
         public const string NODEJS_JOB3_NORMAL =
 
         #region Json
+
  @"{
   ""actions"" : [
     {
-      
     },
     {
-      
     },
     {
-      
     }
   ],
   ""description"" : """",
@@ -408,22 +389,19 @@ namespace JenkinsObserver.Test
   ""nextBuildNumber"" : 1174,
   ""property"" : [
     {
-      
     },
     {
-      
     }
   ],
   ""queueItem"" : null,
   ""concurrentBuild"" : false,
   ""downstreamProjects"" : [
-    
+
   ],
   ""scm"" : {
-    
   },
   ""upstreamProjects"" : [
-    
+
   ],
   ""activeConfigurations"" : [
     {
@@ -448,7 +426,7 @@ namespace JenkinsObserver.Test
     }
   ]
 }";
-        #endregion
 
+        #endregion Json
     }
 }

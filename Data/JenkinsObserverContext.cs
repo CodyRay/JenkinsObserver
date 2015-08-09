@@ -1,17 +1,17 @@
+using Contracts;
 using System;
 using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
-using Contracts;
 
 namespace Data
 {
-
     internal class JenkinsObserverContext : DbContext
     {
-        public JenkinsObserverContext(DbConnection connection) 
-            : base(connection, true) { }
+        public JenkinsObserverContext(DbConnection connection)
+            : base(connection, true)
+        { }
 
         public DbSet<ObserverSettings> Settings { get; set; }
 

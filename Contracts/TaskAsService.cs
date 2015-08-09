@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TPLTask = System.Threading.Tasks.Task;
@@ -22,7 +19,7 @@ namespace Contracts
             set
             {
                 if (value == null)
-                    throw new InvalidOperationException("Cannot Set Cancel to Null"); 
+                    throw new InvalidOperationException("Cannot Set Cancel to Null");
                 _cancel = value;
             }
         }
@@ -32,9 +29,9 @@ namespace Contracts
             get { return _task; }
             set
             {
-                if (value == null) 
+                if (value == null)
                     throw new InvalidOperationException("Cannot Set Task to Null");
-                _task = value; 
+                _task = value;
             }
         }
 
@@ -69,7 +66,6 @@ namespace Contracts
         }
 
         public bool IsRunning { get { return !(Task.IsCanceled || Task.IsFaulted || Task.IsCompleted); } }
-
 
         public static TaskAsService<T> Create<T>(Func<CancellationToken, Task<T>> createTask, string name = null)
         {
@@ -143,8 +139,5 @@ namespace Contracts
         }
 
         public bool IsRunning { get { return !(Task.IsCanceled || Task.IsFaulted || Task.IsCompleted); } }
-
-
-
     }
 }

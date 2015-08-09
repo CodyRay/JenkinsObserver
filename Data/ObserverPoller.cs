@@ -1,13 +1,12 @@
-﻿using System;
-using System.Linq;
-using System.Net.Cache;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Contracts;
 using Contracts.JenkinsApi;
 using Newtonsoft.Json;
+using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Data
 {
@@ -74,6 +73,7 @@ namespace Data
                 //Ignored
             }
         }
+
         public async Task PollServer(ObserverServer server, CancellationToken token)
         {
             var serverOriginal = Clone(server);
@@ -106,6 +106,7 @@ namespace Data
                 SendStatusChanged(beforeJobs[jName], ChangeType.MissingJob);
             }
         }
+
         protected void CheckJobForChange(ObserverJob oldJob, ObserverJob newJob)
         {
             //ChangeType.BuildCompleted;
@@ -120,9 +121,17 @@ namespace Data
                 SendStatusChanged(oldJob, ChangeType.BuildStatusChange);
         }
 
+        #region Methods
+
         protected static T Clone<T>(T server)
         {
             return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(server));
+        }
+
+        protected Task<JobDetail> GetJobDetailAsync(string url, CancellationToken token)
+        {
+            var uri = new Uri(new Uri(url), "api/json");
+            return Request<JobDetail>(uri, token);
         }
 
         private async Task<T> Request<T>(Uri uri, CancellationToken token) where T : class
@@ -135,16 +144,12 @@ namespace Data
             }
         }
 
-        protected Task<JobDetail> GetJobDetailAsync(string url, CancellationToken token)
-        {
-            var uri = new Uri(new Uri(url), "api/json");
-            return Request<JobDetail>(uri, token);
-        }
-
         protected Task<ServerDetail> GetServerDetailAsync(string url, CancellationToken token)
         {
             var uri = new Uri(new Uri(url), "api/json");
             return Request<ServerDetail>(uri, token);
         }
+
+        #endregion Methods
     }
 }

@@ -14,7 +14,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ScrollViewer x:Name="ScrollViewer" >
+        <ScrollViewer x:Name="ScrollViewer">
             <ListView HorizontalContentAlignment="Stretch" ItemsSource="{Binding Servers}">
                 <ListView.Template>
                     <ControlTemplate>
@@ -25,7 +25,7 @@
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
@@ -65,7 +65,7 @@
                 </ListView.ItemTemplate>
             </ListView>
         </ScrollViewer>
-        <Border Grid.Row="1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" BorderThickness="0,1,0,0" >
+        <Border Grid.Row="1" BorderBrush="{DynamicResource {x:Static SystemColors.ActiveBorderBrushKey}}" BorderThickness="0,1,0,0">
             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="26">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -73,14 +73,14 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <CheckBox VerticalAlignment="Center" Content="Notifications" IsChecked="{Binding EnableNotifications}"/>
-                    <CheckBox VerticalAlignment="Center" Content="Status Change Sound" IsChecked="{Binding EnableSounds}"/>
+                    <CheckBox VerticalAlignment="Center" Content="Notifications" IsChecked="{Binding EnableNotifications}" />
+                    <CheckBox VerticalAlignment="Center" Content="Status Change Sound" IsChecked="{Binding EnableSounds}" />
                 </StackPanel>
                 <StackPanel Grid.Column="1" Orientation="Horizontal">
-                    <Label Content="Server Polling Period (min):"/>
-                    <xctk:IntegerUpDown Minimum="1" Maximum="60" AllowSpin="True" Increment="1" VerticalAlignment="Center" Width="120" Value="{Binding PollingPeriod}"/>
+                    <Label Content="Server Polling Period (min):" />
+                    <xctk:IntegerUpDown Minimum="1" Maximum="60" AllowSpin="True" Increment="1" VerticalAlignment="Center" Width="120" Value="{Binding PollingPeriod}" />
                 </StackPanel>
-                <Button Grid.Column="2" Content="Add Server" VerticalAlignment="Stretch" Width="75" Click="AddServer"/>
+                <Button Grid.Column="2" Content="Add Server" VerticalAlignment="Stretch" Width="75" Click="AddServer" />
             </Grid>
         </Border>
     </Grid>

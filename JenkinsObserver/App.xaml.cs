@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
+﻿using Contracts;
+using Data;
+using Gat.Controls;
+using System;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
-using Autofac;
-using Autofac.Features.OwnedInstances;
-using Contracts;
-using Data;
-using Gat.Controls;
 using ContextMenu = System.Windows.Forms.ContextMenu;
 using MenuItem = System.Windows.Forms.MenuItem;
 using NotifyIcon = System.Windows.Forms.NotifyIcon;
@@ -26,12 +20,14 @@ namespace JenkinsObserver
         protected SettingsStorage Data { get; set; }
         protected ObserverPoller Poller { get; set; }
         protected TaskAsService PollerService { get; set; }
+
         public App()
         {
             Data = new SettingsStorage();
             Poller = new ObserverPoller();
             PollerService = TaskAsService.Create(token => Poller.Run(token));
         }
+
         private void AppStart(object sender, StartupEventArgs e)
         {
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
@@ -53,7 +49,7 @@ namespace JenkinsObserver
                 DefaultItem = true
             };
             menuSettings.Click += OpenSettings;
-            _notifyIcon.ContextMenu.MenuItems.Add(menuSettings); 
+            _notifyIcon.ContextMenu.MenuItems.Add(menuSettings);
             var about = new MenuItem
             {
                 Text = "About",
@@ -75,7 +71,7 @@ namespace JenkinsObserver
                     OpenSettings();
             };
 
-            #endregion
+            #endregion TrayIcon
 
             Poller.JobChanged += JobChanged;
 
@@ -105,6 +101,7 @@ namespace JenkinsObserver
         }
 
         private MainWindow _settings;
+
         private async void OpenSettings(object sender = null, EventArgs e = null)
         {
             if (_settings != null)

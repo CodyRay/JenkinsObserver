@@ -1,6 +1,6 @@
+using PropertyChanged;
 using System;
 using System.ComponentModel.DataAnnotations;
-using PropertyChanged;
 
 namespace Contracts
 {
@@ -9,6 +9,7 @@ namespace Contracts
     {
         [Key]
         public long Id { get; set; }
+
         public bool Enabled { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -25,23 +26,27 @@ namespace Contracts
                 {
                     case JobStatus.Unknown:
                         return "BLUE";
+
                     case JobStatus.Aborted:
                     case JobStatus.Disabled:
                     case JobStatus.NotBuilt:
                     case JobStatus.Pending:
                         return "GREY";
+
                     case JobStatus.Failed:
                         return "RED";
+
                     case JobStatus.Unstable:
                         return "YELLOW";
+
                     case JobStatus.Success:
                         return "GREEN";
+
                     default:
                         throw new InvalidOperationException("Bad Status");
                 }
             }
         }
-
 
         public static Tuple<JobStatus, bool> GetJobsStatus(string ball_color)
         {
@@ -53,30 +58,37 @@ namespace Contracts
                 case "ABORTED_ANIME":
                     status = JobStatus.Aborted;
                     break;
+
                 case "BLUE":
                 case "BLUE_ANIME":
                     status = JobStatus.Success;
                     break;
+
                 case "DISABLED":
                 case "DISABLED_ANIME":
                     status = JobStatus.Disabled;
                     break;
+
                 case "GREY":
                 case "GREY_ANIME":
                     status = JobStatus.Pending;
                     break;
+
                 case "NOTBUILT":
                 case "NOTBUILT_ANIME":
                     status = JobStatus.NotBuilt;
                     break;
+
                 case "RED":
                 case "RED_ANIME":
                     status = JobStatus.Failed;
                     break;
+
                 case "YELLOW":
                 case "YELLOW_ANIME":
                     status = JobStatus.Unstable;
                     break;
+
                 default:
                     throw new InvalidOperationException("Unexpected Ball_Color " + ball_color);
             }
@@ -92,6 +104,7 @@ namespace Contracts
                 case "YELLOW":
                     inProgress = false;
                     break;
+
                 case "ABORTED_ANIME":
                 case "BLUE_ANIME":
                 case "DISABLED_ANIME":
@@ -101,6 +114,7 @@ namespace Contracts
                 case "YELLOW_ANIME":
                     inProgress = true;
                     break;
+
                 default:
                     throw new InvalidOperationException("Unexpected Ball_Color " + ball_color);
             }

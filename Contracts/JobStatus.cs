@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Contracts
+﻿namespace Contracts
 {
     public enum JobStatus
     {
@@ -14,6 +9,6 @@ namespace Contracts
         Pending,
         NotBuilt,
         Failed,
-        Unstable, 
+        Unstable,
     }
 }

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Contracts;
 using System.Data.Common;
-using System.Data.Entity;
 using System.Data.Entity.SqlServerCompact;
 using System.Data.SqlServerCe;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Contracts;
 
 namespace Data
 {

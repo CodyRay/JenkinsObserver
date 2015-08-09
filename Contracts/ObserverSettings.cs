@@ -1,31 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PropertyChanged;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using PropertyChanged;
 
 namespace Contracts
 {
     [ImplementPropertyChanged]
     public class ObserverSettings
     {
-        public static ObserverSettings DefaultSettings { get
+        public static ObserverSettings DefaultSettings
         {
-            return new ObserverSettings
+            get
             {
-                EnableNotifications = true,
-                EnableSounds = true,
+                return new ObserverSettings
+                {
+                    EnableNotifications = true,
+                    EnableSounds = true,
 #if DEBUG
-                PollingPeriod = 10000, //10 Sec
+                    PollingPeriod = 10000, //10 Sec
 #else
                 PollingPeriod = 300000, //5 Minutes
 #endif
-                AlertOnChangesOnly = false,
-            };
-        } }
+                    AlertOnChangesOnly = false,
+                };
+            }
+        }
 
         [Key]
         public long Id { get; set; }
+
         public ObservableCollection<ObserverServer> Servers { get; set; }
         public bool EnableNotifications { get; set; }
         public bool EnableSounds { get; set; }
