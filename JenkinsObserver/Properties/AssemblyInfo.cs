@@ -47,5 +47,20 @@ using System.Windows;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("0.5.*")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+/*
+ * Fody.Stamp puts the hash of the last comit into this attribute
+ * The tokens are:
+ * 
+ * %version% is replaced with the version (1.0.0.0)
+ * %version1% is replaced with the major version only (1)
+ * %version2% is replaced with the major and minor version (1.0)
+ * %version3% is replaced with the major, minor, and revision version (1.0.0)
+ * %version4% is replaced with the major, minor, revision, and build version (1.0.0.0)
+ * %githash% is replaced with the SHA1 hash of the branch tip of the repository
+ * %shorthash% is replaced with the first eight characters of %githash%
+ * %branch% is replaced with the branch name of the repository
+ * %haschanges% is replaced with the string defined in the ChangeString attribute in the configuration, see below.
+*/
+[assembly: AssemblyInformationalVersion("%version% %githash%")]

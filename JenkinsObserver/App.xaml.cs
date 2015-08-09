@@ -2,6 +2,7 @@
 using Data;
 using Gat.Controls;
 using System;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -17,6 +18,7 @@ namespace JenkinsObserver
     public partial class App : System.Windows.Application
     {
         private NotifyIcon _notifyIcon;
+        protected ObserverSettings Settings { get; set; }
         protected SettingsStorage Data { get; set; }
         protected ObserverPoller Poller { get; set; }
         protected TaskAsService PollerService { get; set; }
@@ -24,6 +26,7 @@ namespace JenkinsObserver
         public App()
         {
             Data = new SettingsStorage();
+            Settings = Data.Settings; //This is here to cause entityframework to load a little faster...
             Poller = new ObserverPoller();
             PollerService = TaskAsService.Create(token => Poller.Run(token));
         }
@@ -80,24 +83,26 @@ namespace JenkinsObserver
 
         private void OpenAbout(object sender = null, EventArgs e = null)
         {
-            ImageSource image = JenkinsObserver.Properties.Resources.appIcon.ToImageSource();
-            var repo_url = new Uri("http://hoeft.me"); //TODO: To GitHub
+            var version = typeof(App).Assembly.GetAssemblyAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
+            var image = JenkinsObserver.Properties.Resources.appIcon.ToImageSource();
+            var repoUrl = new Uri("https://github.com/haroldhues/JenkinsObserver/");
             var about = new About()
             {
-                AdditionalNotes = "These are all my notesdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddds",
+                AdditionalNotes = "Jenkins Obsever is Licensed Under the MIT License. This application will also attempt to update itself on startup.",
                 ApplicationLogo = image,
                 PublisherLogo = image,
-                Hyperlink = repo_url,
-                Publisher = "Publisher",
-                HyperlinkText = repo_url.ToString(),
-                IsSemanticVersioning = true,
+                Hyperlink = repoUrl,
+                Publisher = "Cody Ray Hoeft",
+                HyperlinkText = repoUrl.ToString(),
+                IsSemanticVersioning = false,
+                Version = version
             };
             about.Show();
         }
 
         private void JobChanged(ObserverPoller poller, ObserverJob job, ChangeType changeType)
         {
-            _notifyIcon.ShowBalloonTip(2000, "JobChanged", string.Format("Job: {0} is now {1}", job.DisplayName, job.Status), ToolTipIcon.Warning);
+            _notifyIcon.ShowBalloonTip(2000, "JobChanged", $"Job: {job.DisplayName} is now {job.Status}", ToolTipIcon.Warning);
         }
 
         private MainWindow _settings;
@@ -124,8 +129,7 @@ namespace JenkinsObserver
 
         private async void AppStop(object sender, EventArgs e)
         {
-            if (_settings != null)
-                _settings.Close();
+            _settings?.Close();
 
             if (PollerService.IsRunning)
                 await PollerService.Stop();

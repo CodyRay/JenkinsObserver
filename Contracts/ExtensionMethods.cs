@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -31,6 +33,11 @@ namespace Contracts
             }
 
             return wpfBitmap;
+        }
+
+        public static T GetAssemblyAttribute<T>(this Assembly ass) where T : Attribute
+        {
+            return ass.GetCustomAttributes(typeof(T), false).OfType<T>().SingleOrDefault();
         }
     }
 }
