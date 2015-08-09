@@ -29,8 +29,7 @@ namespace Data
                             (current, validationError) =>
                                 current +
                                 (Environment.NewLine +
-                                 string.Format("Property: {0} Error: {1}", validationError.PropertyName,
-                                     validationError.ErrorMessage)));
+                                 $"Property: {validationError.PropertyName} Error: {validationError.ErrorMessage}"));
 
                 throw new Exception(errorMessage, dbEx);
             }

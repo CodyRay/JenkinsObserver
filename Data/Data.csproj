@@ -81,7 +81,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="JenkinsContextFactory.cs" />
     <Compile Include="JenkinsObserverContext.cs" />
+    <Compile Include="Migrations\201508091730347_0.5.cs" />
+    <Compile Include="Migrations\201508091730347_0.5.Designer.cs">
+      <DependentUpon>201508091730347_0.5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="SettingsStorage.cs" />
     <Compile Include="ObserverPoller.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,6 +105,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508091730347_0.5.resx">
+      <DependentUpon>201508091730347_0.5.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -14,18 +14,13 @@ namespace Data
             SqlCeFunctions.Pi();
         }
 
-        protected DbConnection GetNewConnection()
-        {
-            return
-                new SqlCeConnection(
-                    @"Data Source=TestEntity.sdf;File Mode=Exclusive;Persist Security Info=False;Password=test");
-        }
+        internal JenkinsContextFactory ContextFactory { get; } = new JenkinsContextFactory();
 
         public ObserverSettings Settings
         {
             get
             {
-                using (var context = new JenkinsObserverContext(GetNewConnection()))
+                using (var context = ContextFactory.Create())
                 {
                     return context.Settings
                         .SingleOrDefault() ?? ObserverSettings.DefaultSettings;
@@ -33,7 +28,7 @@ namespace Data
             }
             set
             {
-                using (var context = new JenkinsObserverContext(GetNewConnection()))
+                using (var context = ContextFactory.Create())
                 {
                     Clear<ObserverJob>(context);
                     Clear<ObserverServer>(context);
