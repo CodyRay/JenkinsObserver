@@ -58,7 +58,11 @@ namespace Data
                         {
                             await PollServer(server, token);
                         }
-                        await Task.Delay(settings.PollingPeriod, token);
+#if DEBUG
+                        await Task.Delay((TimeSpan.FromSeconds(settings.PollingPeriod)), token); //For Debug a minute is a sec
+#else
+                        await Task.Delay(TimeSpan.FromMinutes(settings.PollingPeriod), token);
+#endif
                     }
                     finally
                     {

@@ -11,11 +11,7 @@ namespace Contracts
         {
             EnableNotifications = true,
             EnableSounds = true,
-#if DEBUG
-            PollingPeriod = 10000, //10 Sec
-#else
-                PollingPeriod = 300000, //5 Minutes
-#endif
+            PollingPeriod = 1, //1 Min
             AlertOnChangesOnly = false,
         };
 

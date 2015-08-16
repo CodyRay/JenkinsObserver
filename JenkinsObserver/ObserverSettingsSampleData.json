@@ -1,61 +1,882 @@
 ﻿{
-  "Id": 0,
+  "Id": 22,
   "Servers": [
     {
-      "Id": 0,
-      "Enabled": false,
-      "Name": "Node.js",
-      "Url": "http://jenkins.node.org/",
+      "Id": 18,
+      "Enabled": true,
+      "Name": "Node JS",
+      "Url": "http://jenkins.nodejs.org/",
       "Jobs": [
         {
-          "Id": 0,
-          "Enabled": false,
-          "Description": "node job 1 description",
-          "DisplayName": "node job 1",
-          "Status": 0,
+          "Id": 1428,
+          "Enabled": true,
+          "Name": "node-review-unix-julien",
+          "Description": "",
+          "DisplayName": "node-review-unix-julien",
+          "Status": 7,
           "InProgress": false,
-          "WebColor": "BLUE"
+          "WebColor": "YELLOW"
         },
         {
-          "Id": 0,
-          "Enabled": false,
-          "Description": "node job 2 description",
-          "DisplayName": "node job 2",
-          "Status": 0,
+          "Id": 1429,
+          "Enabled": true,
+          "Name": "node-review-unix-srloomis",
+          "Description": "",
+          "DisplayName": "node-review-unix-srloomis",
+          "Status": 2,
           "InProgress": false,
-          "WebColor": "BLUE"
-        }
-      ]
-    },
-    {
-      "Id": 0,
-      "Enabled": false,
-      "Name": "project alpha",
-      "Url": "http://example.com/",
-      "Jobs": [
-        {
-          "Id": 0,
-          "Enabled": false,
-          "Description": "alpha job 1 description",
-          "DisplayName": "alpha job 1",
-          "Status": 0,
-          "InProgress": false,
-          "WebColor": "BLUE"
+          "WebColor": "GREEN"
         },
         {
-          "Id": 0,
-          "Enabled": false,
-          "Description": "alpha job 2 description",
-          "DisplayName": "alpha job 2",
-          "Status": 0,
+          "Id": 1430,
+          "Enabled": true,
+          "Name": "node-review-windows",
+          "Description": "",
+          "DisplayName": "node-review-windows",
+          "Status": 7,
           "InProgress": false,
-          "WebColor": "BLUE"
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1431,
+          "Enabled": true,
+          "Name": "node-review-windows-julien",
+          "Description": "",
+          "DisplayName": "node-review-windows-julien",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1432,
+          "Enabled": true,
+          "Name": "node-review-windows-srloomis",
+          "Description": "",
+          "DisplayName": "node-review-windows-srloomis",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1433,
+          "Enabled": true,
+          "Name": "node-test",
+          "Description": "",
+          "DisplayName": "node-test",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1434,
+          "Enabled": true,
+          "Name": "node-test-centos-5.7",
+          "Description": "",
+          "DisplayName": "node-test-centos-5.7",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1435,
+          "Enabled": true,
+          "Name": "node-test-commit",
+          "Description": "Builds and tests a commit on multiple platforms.",
+          "DisplayName": "node-test-commit",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1436,
+          "Enabled": true,
+          "Name": "node-test-commit-unix",
+          "Description": "Builds and tests a commit on *nix",
+          "DisplayName": "node-test-commit-unix",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1437,
+          "Enabled": true,
+          "Name": "node-test-commit-windows",
+          "Description": "Builds and tests a commit on Windows.",
+          "DisplayName": "node-test-commit-windows",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1438,
+          "Enabled": true,
+          "Name": "node-test-osx",
+          "Description": "",
+          "DisplayName": "node-test-osx",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1439,
+          "Enabled": true,
+          "Name": "node-test-smartos",
+          "Description": "",
+          "DisplayName": "node-test-smartos",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1440,
+          "Enabled": true,
+          "Name": "node-test-ubuntu-12.04",
+          "Description": "",
+          "DisplayName": "node-test-ubuntu-12.04",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1441,
+          "Enabled": true,
+          "Name": "node-test-windows-azure",
+          "Description": "",
+          "DisplayName": "node-test-windows-azure",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1442,
+          "Enabled": true,
+          "Name": "node-testnpm-unix",
+          "Description": "Builds and runs npm tests a commit on *nix",
+          "DisplayName": "node-testnpm-unix",
+          "Status": 1,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1443,
+          "Enabled": true,
+          "Name": "node-validate-npm",
+          "DisplayName": "node-validate-npm",
+          "Status": 5,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1444,
+          "Enabled": true,
+          "Name": "node-with-uv-1.0",
+          "Description": "",
+          "DisplayName": "node-with-uv-1.0",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1445,
+          "Enabled": true,
+          "Name": "nodejs-apps-0-11-14-release",
+          "Description": "",
+          "DisplayName": "nodejs-apps-0-11-14-release",
+          "Status": 3,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1446,
+          "Enabled": true,
+          "Name": "nodejs-btar",
+          "Description": "",
+          "DisplayName": "nodejs-btar",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1447,
+          "Enabled": true,
+          "Name": "nodejs-btar-julien",
+          "Description": "",
+          "DisplayName": "nodejs-btar-julien",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1448,
+          "Enabled": true,
+          "Name": "nodejs-deb",
+          "Description": "",
+          "DisplayName": "nodejs-deb",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1449,
+          "Enabled": true,
+          "Name": "nodejs-indep",
+          "Description": "uploads docs and sourceball",
+          "DisplayName": "nodejs-indep",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1450,
+          "Enabled": true,
+          "Name": "nodejs-indep-julien",
+          "Description": "uploads docs and sourceball",
+          "DisplayName": "nodejs-indep-julien",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1451,
+          "Enabled": true,
+          "Name": "nodejs-julien",
+          "Description": "",
+          "DisplayName": "nodejs-julien",
+          "Status": 1,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1452,
+          "Enabled": true,
+          "Name": "nodejs-julien-v0.10",
+          "Description": "",
+          "DisplayName": "nodejs-julien-v0.10",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1453,
+          "Enabled": true,
+          "Name": "nodejs-julien-v0.10-windows",
+          "Description": "",
+          "DisplayName": "nodejs-julien-v0.10-windows",
+          "Status": 1,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1454,
+          "Enabled": true,
+          "Name": "nodejs-julien-windows",
+          "Description": "",
+          "DisplayName": "nodejs-julien-windows",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1455,
+          "Enabled": true,
+          "Name": "nodejs-master",
+          "Description": "",
+          "DisplayName": "nodejs-master",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1456,
+          "Enabled": true,
+          "Name": "nodejs-master-freebsd",
+          "Description": "",
+          "DisplayName": "nodejs-master-freebsd",
+          "Status": 3,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1457,
+          "Enabled": true,
+          "Name": "nodejs-master-windows",
+          "Description": "",
+          "DisplayName": "nodejs-master-windows",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1458,
+          "Enabled": true,
+          "Name": "nodejs-msi",
+          "Description": "",
+          "DisplayName": "nodejs-msi",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1459,
+          "Enabled": true,
+          "Name": "nodejs-msi-julien",
+          "Description": "",
+          "DisplayName": "nodejs-msi-julien",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1460,
+          "Enabled": true,
+          "Name": "nodejs-pkg",
+          "Description": "",
+          "DisplayName": "nodejs-pkg",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1461,
+          "Enabled": true,
+          "Name": "nodejs-pkgsrc",
+          "Description": "",
+          "DisplayName": "nodejs-pkgsrc",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1462,
+          "Enabled": true,
+          "Name": "nodejs-release",
+          "Description": "",
+          "DisplayName": "nodejs-release",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1463,
+          "Enabled": true,
+          "Name": "nodejs-release-julien",
+          "Description": "",
+          "DisplayName": "nodejs-release-julien",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1464,
+          "Enabled": true,
+          "Name": "nodejs-v0.10",
+          "Description": "",
+          "DisplayName": "nodejs-v0.10",
+          "Status": 1,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1465,
+          "Enabled": true,
+          "Name": "nodejs-v0.10-freebsd",
+          "Description": "",
+          "DisplayName": "nodejs-v0.10-freebsd",
+          "Status": 3,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1466,
+          "Enabled": true,
+          "Name": "nodejs-v0.10-windows",
+          "Description": "",
+          "DisplayName": "nodejs-v0.10-windows",
+          "Status": 6,
+          "InProgress": true,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1467,
+          "Enabled": true,
+          "Name": "nodejs-v0.12",
+          "Description": "",
+          "DisplayName": "nodejs-v0.12",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1468,
+          "Enabled": true,
+          "Name": "nodejs-v0.12-freebsd",
+          "Description": "",
+          "DisplayName": "nodejs-v0.12-freebsd",
+          "Status": 3,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1469,
+          "Enabled": true,
+          "Name": "nodejs-v0.12-windows",
+          "Description": "",
+          "DisplayName": "nodejs-v0.12-windows",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1470,
+          "Enabled": true,
+          "Name": "nodejs-v0.8",
+          "Description": "",
+          "DisplayName": "nodejs-v0.8",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1471,
+          "Enabled": true,
+          "Name": "nodejs-v012-apps",
+          "Description": "",
+          "DisplayName": "nodejs-v012-apps",
+          "Status": 3,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1472,
+          "Enabled": true,
+          "Name": "nodejs-v012-apps-windows",
+          "Description": "",
+          "DisplayName": "nodejs-v012-apps-windows",
+          "Status": 3,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1473,
+          "Enabled": true,
+          "Name": "orangemocha-node-accept-commit",
+          "DisplayName": "orangemocha-node-accept-commit",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1474,
+          "Enabled": true,
+          "Name": "orangemocha-node-accept-pull-request",
+          "DisplayName": "orangemocha-node-accept-pull-request",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1475,
+          "Enabled": true,
+          "Name": "orangemocha-node-push-merge-commit",
+          "Description": "For internal use by other proejcts (node-accept-commit).",
+          "DisplayName": "orangemocha-node-push-merge-commit",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1476,
+          "Enabled": true,
+          "Name": "orangemocha-node-test-commit",
+          "Description": "Builds and tests a commit on multiple platforms.",
+          "DisplayName": "orangemocha-node-test-commit",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1477,
+          "Enabled": true,
+          "Name": "orangemocha-node-test-commit-unix",
+          "Description": "Builds and tests a commit on *nix",
+          "DisplayName": "orangemocha-node-test-commit-unix",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1478,
+          "Enabled": true,
+          "Name": "orangemocha-node-test-commit-windows",
+          "Description": "Builds and tests a commit on Windows.",
+          "DisplayName": "orangemocha-node-test-commit-windows",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1479,
+          "Enabled": true,
+          "Name": "print-env",
+          "Description": "A no-op project that prints the current environment. Useful for testing project changes.",
+          "DisplayName": "print-env",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1480,
+          "Enabled": true,
+          "Name": "libuv-julien",
+          "Description": "",
+          "DisplayName": "libuv-julien",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1481,
+          "Enabled": true,
+          "Name": "libuv-julien-windows",
+          "Description": "",
+          "DisplayName": "libuv-julien-windows",
+          "Status": 6,
+          "InProgress": true,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1482,
+          "Enabled": true,
+          "Name": "libuv-master",
+          "Description": "",
+          "DisplayName": "libuv-master",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1483,
+          "Enabled": true,
+          "Name": "libuv-master-freebsd",
+          "Description": "",
+          "DisplayName": "libuv-master-freebsd",
+          "Status": 1,
+          "InProgress": true,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1484,
+          "Enabled": true,
+          "Name": "libuv-master-gyp",
+          "Description": "",
+          "DisplayName": "libuv-master-gyp",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1485,
+          "Enabled": true,
+          "Name": "libuv-master-gyp-freebsd",
+          "Description": "",
+          "DisplayName": "libuv-master-gyp-freebsd",
+          "Status": 1,
+          "InProgress": true,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1486,
+          "Enabled": true,
+          "Name": "libuv-master-mingw-w64",
+          "Description": "",
+          "DisplayName": "libuv-master-mingw-w64",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1487,
+          "Enabled": true,
+          "Name": "libuv-master-windows",
+          "Description": "",
+          "DisplayName": "libuv-master-windows",
+          "Status": 1,
+          "InProgress": true,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1488,
+          "Enabled": true,
+          "Name": "libuv-pullrequest",
+          "Description": "",
+          "DisplayName": "libuv-pullrequest",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1489,
+          "Enabled": true,
+          "Name": "libuv-review",
+          "Description": "",
+          "DisplayName": "libuv-review",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1490,
+          "Enabled": true,
+          "Name": "libuv-review-freebsd",
+          "Description": "",
+          "DisplayName": "libuv-review-freebsd",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1491,
+          "Enabled": true,
+          "Name": "libuv-review-windows",
+          "Description": "",
+          "DisplayName": "libuv-review-windows",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1492,
+          "Enabled": true,
+          "Name": "libuv-v0.10",
+          "Description": "",
+          "DisplayName": "libuv-v0.10",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1493,
+          "Enabled": true,
+          "Name": "libuv-v0.10-gyp",
+          "Description": "",
+          "DisplayName": "libuv-v0.10-gyp",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1494,
+          "Enabled": true,
+          "Name": "libuv-v0.10-windows",
+          "Description": "",
+          "DisplayName": "libuv-v0.10-windows",
+          "Status": 1,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1495,
+          "Enabled": true,
+          "Name": "libuv-v0.8",
+          "Description": "",
+          "DisplayName": "libuv-v0.8",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1496,
+          "Enabled": true,
+          "Name": "libuv-v1.x",
+          "Description": "",
+          "DisplayName": "libuv-v1.x",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
+        },
+        {
+          "Id": 1497,
+          "Enabled": true,
+          "Name": "libuv-v1.x-gyp",
+          "Description": "",
+          "DisplayName": "libuv-v1.x-gyp",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1498,
+          "Enabled": true,
+          "Name": "libuv-v1.x-windows",
+          "Description": "",
+          "DisplayName": "libuv-v1.x-windows",
+          "Status": 1,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1499,
+          "Enabled": true,
+          "Name": "node-accept-commit",
+          "DisplayName": "node-accept-commit",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1500,
+          "Enabled": true,
+          "Name": "node-accept-pull-request",
+          "DisplayName": "node-accept-pull-request",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1501,
+          "Enabled": true,
+          "Name": "node-build",
+          "Description": "",
+          "DisplayName": "node-build",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1502,
+          "Enabled": true,
+          "Name": "node-build-centos-5.7",
+          "Description": "",
+          "DisplayName": "node-build-centos-5.7",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1503,
+          "Enabled": true,
+          "Name": "node-build-osx",
+          "Description": "",
+          "DisplayName": "node-build-osx",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1504,
+          "Enabled": true,
+          "Name": "node-build-smartos",
+          "Description": "",
+          "DisplayName": "node-build-smartos",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1505,
+          "Enabled": true,
+          "Name": "node-build-ubuntu-12.04",
+          "Description": "",
+          "DisplayName": "node-build-ubuntu-12.04",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1506,
+          "Enabled": true,
+          "Name": "node-build-windows",
+          "Description": "",
+          "DisplayName": "node-build-windows",
+          "Status": 3,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1507,
+          "Enabled": true,
+          "Name": "node-build-windows-azure",
+          "Description": "",
+          "DisplayName": "node-build-windows-azure",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1508,
+          "Enabled": true,
+          "Name": "node-pullrequest",
+          "Description": "",
+          "DisplayName": "node-pullrequest",
+          "Status": 6,
+          "InProgress": false,
+          "WebColor": "RED"
+        },
+        {
+          "Id": 1509,
+          "Enabled": true,
+          "Name": "node-push-merge-commit",
+          "Description": "For internal use by other projects (node-accept-commit).",
+          "DisplayName": "node-push-merge-commit",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1510,
+          "Enabled": true,
+          "Name": "node-review",
+          "Description": "",
+          "DisplayName": "node-review",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1511,
+          "Enabled": true,
+          "Name": "node-review-freebsd",
+          "Description": "",
+          "DisplayName": "node-review-freebsd",
+          "Status": 1,
+          "InProgress": false,
+          "WebColor": "GREY"
+        },
+        {
+          "Id": 1512,
+          "Enabled": true,
+          "Name": "node-review-julien",
+          "Description": "",
+          "DisplayName": "node-review-julien",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1513,
+          "Enabled": true,
+          "Name": "node-review-srloomis",
+          "Description": "",
+          "DisplayName": "node-review-srloomis",
+          "Status": 2,
+          "InProgress": false,
+          "WebColor": "GREEN"
+        },
+        {
+          "Id": 1514,
+          "Enabled": true,
+          "Name": "node-review-unix",
+          "Description": "",
+          "DisplayName": "node-review-unix",
+          "Status": 7,
+          "InProgress": false,
+          "WebColor": "YELLOW"
         }
       ]
     }
   ],
   "EnableNotifications": true,
   "EnableSounds": true,
-  "AlertOnChangesOnly": true,
-  "PollingPeriod": 1
+  "AlertOnChangesOnly": false,
+  "PollingPeriod": 10000
 }

@@ -2,6 +2,7 @@
 using Data;
 using Gat.Controls;
 using System;
+using System.ComponentModel;
 using System.Media;
 using System.Reflection;
 using System.Security.Policy;
@@ -192,7 +193,11 @@ namespace JenkinsObserver
                 OpenConsole();
             };
 
-            SettingsWindow.ShowDialog(); //TODO: Win32Exception The Operation Completed Successfully
+            try
+            {
+                SettingsWindow.ShowDialog(); //TODO: Win32Exception The Operation Completed Successfully
+            }
+            catch (Win32Exception) { }
 
             PollerService.Start();
             _notifyIcon.ShowBalloonTip(2000, "Jenkins Observer", "Polling in Background", ToolTipIcon.Info);

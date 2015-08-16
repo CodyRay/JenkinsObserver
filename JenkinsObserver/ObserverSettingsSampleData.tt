@@ -32,7 +32,7 @@ void Convert(object data, bool assembly = true, int tabs = 0)
 		var val = prop.GetValue(data);
 		if(innerEnumerable == null || prop.PropertyType == typeof(string))
 		{
-			if(val != null)
+			if(val != null && !(val is string && string.IsNullOrWhiteSpace((string)val)))
 			{
 #>
 <#+Tabs(tabs+2);#><c:<#= type.Name #>.<#= prop.Name #>><#= val #></c:<#= type.Name #>.<#= prop.Name #>>
