@@ -8,6 +8,8 @@
         Settings,
         PollerRunning,
         PollerStart,
-        PollerStop
+        PollerStop,
+        NodeServer,
+        TestNotifications
     }
 }

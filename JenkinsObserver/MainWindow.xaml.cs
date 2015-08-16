@@ -43,7 +43,9 @@ namespace JenkinsObserver
         {
             Settings.Servers.Add(new ObserverServer
             {
-                Name = "New Server"
+                Name = "New Server",
+                Url = @"http://example.com/",
+                Enabled = true,
             });
         }
 

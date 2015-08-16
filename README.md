@@ -5,11 +5,13 @@ This app is currently in an incomplete beta state, but you are free to [download
 ##TODO
 
  * Implement Proper Notifications
- * Implement Sounds
+ * Implement Proper Sounds
  * Make an Icon
  * Global Error Handling
-   * Specifically Entering a bad url on the settings shouldn't crash the program
  * The poll now button should change to a cancel button
    * When the window is closed it should cancel all automatically
  * Confirm auto updates workings
  * No way to remove servers
+ * Fields that should not be edited are editable
+ * No way to disable servers
+ * Enabled flags don't do anything

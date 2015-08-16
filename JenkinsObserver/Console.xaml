@@ -8,9 +8,13 @@
         mc:Ignorable="d"
         Title="Console" Height="300" Width="300" Loaded="Console_OnLoaded" KeyDown="Console_OnKeyDown">
     <Grid>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="272"/>
-        <Border BorderBrush="Black" BorderThickness="2" HorizontalAlignment="Left" Height="222" Margin="10,37,0,0" VerticalAlignment="Top" Width="272" Background="#FF303030">
-            <TextBlock Padding="5" x:Name="output" HorizontalAlignment="Left" Height="222" Margin="-1" TextWrapping="Wrap" VerticalAlignment="Top" Width="272" FontFamily="Consolas" FontSize="10.667" Background="#FFCDCDCD"><Run Text="Select Command and Press Enter"/></TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <ComboBox Grid.Row="0" x:Name="comboBox" Margin="7 7 7 0"/>
+        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2" Margin="7" Background="#FF303030">
+            <TextBox Padding="5" x:Name="output" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10.667" Background="#FFCDCDCD" Text="Select Command and Press Enter"/>
         </Border>
 
     </Grid>

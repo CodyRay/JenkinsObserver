@@ -58,7 +58,7 @@ namespace Data
 
         public string SettingsAsJson
         {
-            get { return JsonConvert.SerializeObject(Settings); }
+            get { return JsonConvert.SerializeObject(Settings, Formatting.Indented); }
             set { Settings = JsonConvert.DeserializeObject<ObserverSettings>(value); }
         }
 

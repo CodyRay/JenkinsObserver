@@ -11,7 +11,7 @@ using System.Diagnostics;
 
 namespace Data
 {
-    public delegate void JobChangeEvent(ObserverPoller sender, ObserverJob job, ChangeType change);
+    public delegate void JobChangeEvent(ObserverPoller sender, ObserverServer server, ObserverJob job, ChangeType change);
 
     public class ObserverPoller
     {
@@ -40,9 +40,9 @@ namespace Data
 
         public event JobChangeEvent JobChanged;
 
-        private void SendStatusChanged(ObserverJob job, ChangeType change)
+        private void SendStatusChanged(ObserverServer server, ObserverJob job, ChangeType change)
         {
-            JobChanged?.Invoke(this, job, change);
+            JobChanged?.Invoke(this, server, job, change);
         }
 
         public async Task Run(CancellationToken token)
@@ -77,7 +77,7 @@ namespace Data
             var serverDetail = await Request<ServerDetail>(server.Url, token);
             if (serverDetail == null)
             {
-                SendStatusChanged(null, ChangeType.ErrorPollingServer);
+                SendStatusChanged(server, null, ChangeType.ErrorPollingServer);
                 return;
             }
 
@@ -97,7 +97,7 @@ namespace Data
                 var jObserver = Mapper.Map<JobDetail, ObserverJob>(jDetail);
                 jObserver.Enabled = true; //By default assume that the user want so see notificications
                 server.Jobs.Add(jObserver);
-                SendStatusChanged(jObserver, ChangeType.NewJobFound);
+                SendStatusChanged(server, jObserver, ChangeType.NewJobFound);
             }
 
             #endregion
@@ -108,7 +108,7 @@ namespace Data
             foreach (var j in Clone(server.Jobs).Where(j => serverDetail.Jobs.All(job => job.Name != j.Name)))
             {
                 server.Jobs.Remove(server.Jobs.Single(job => job.Name == j.Name));
-                SendStatusChanged(j, ChangeType.MissingJob);
+                SendStatusChanged(server, j, ChangeType.MissingJob);
             }
 
             #endregion
@@ -152,11 +152,11 @@ namespace Data
                 if (job != null)
                 {
                     Mapper.Map(job, observerJob);
-                    SendStatusChanged(observerJob, changeType.Value);
+                    SendStatusChanged(server, observerJob, changeType.Value);
                 }
                 else
                 {
-                    SendStatusChanged(observerJob, ChangeType.ErrorPollingJob);
+                    SendStatusChanged(server, observerJob, ChangeType.ErrorPollingJob);
                 }
             }
         }

@@ -2,6 +2,7 @@
 using Data;
 using Gat.Controls;
 using System;
+using System.Media;
 using System.Reflection;
 using System.Security.Policy;
 using System.Threading.Tasks;
@@ -111,9 +112,61 @@ namespace JenkinsObserver
             console.Show();
         }
 
-        private void JobChanged(ObserverPoller poller, ObserverJob job, ChangeType changeType)
+        public void JobChanged(ObserverPoller poller, ObserverServer server, ObserverJob job, ChangeType changeType)
         {
-            _notifyIcon.ShowBalloonTip(2000, changeType.ToString(), $"Job: {job?.DisplayName} is now {job?.Status}", ToolTipIcon.Warning);
+            var settings = Data.Settings;
+            var enabled = (server?.Enabled ?? true) && (job?.Enabled ?? true);
+            switch (changeType)
+            {
+                case ChangeType.BuildCompleted:
+                    if (!(enabled && settings.EnableNotifications) || settings.AlertOnChangesOnly)
+                        break;
+                    _notifyIcon.ShowBalloonTip(2000, "Build Complete", $"Job: {job?.DisplayName} is no longer building", ToolTipIcon.Warning);
+                    break;
+                case ChangeType.BuildStarted:
+                    if (!(enabled && settings.EnableNotifications) || settings.AlertOnChangesOnly)
+                        break;
+                    _notifyIcon.ShowBalloonTip(2000, "Build Started", $"Job: {job?.DisplayName} is now building", ToolTipIcon.Warning);
+                    break;
+                case ChangeType.BuildStatusChange:
+                    if (!(enabled && settings.EnableNotifications))
+                        break;
+                    _notifyIcon.ShowBalloonTip(2000, "Status Change", $"Job: {job?.DisplayName} is now {job?.Status}", ToolTipIcon.Warning);
+                    break;
+                case ChangeType.MissingJob:
+                    _notifyIcon.ShowBalloonTip(2000, "Job No Longer Exists", $"Job: {job?.DisplayName} no longer exists", ToolTipIcon.Warning);
+                    break;
+                case ChangeType.NewJobFound:
+                    _notifyIcon.ShowBalloonTip(2000, "New Job", $"Job: {job?.DisplayName} has been found", ToolTipIcon.Warning);
+                    break;
+                case ChangeType.ErrorPollingServer:
+                    _notifyIcon.ShowBalloonTip(10000, "Error Polling Server", $"Server: '{server?.Name}' at '{server?.Url}' could not be polled", ToolTipIcon.Error);
+                    break;
+                case ChangeType.ErrorPollingJob:
+                    _notifyIcon.ShowBalloonTip(10000, "Error Polling Job", $"Job: '{job?.DisplayName ?? job?.Name}' in '{server?.Name}' could not be polled", ToolTipIcon.Error);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(changeType), changeType, null);
+            }
+            if (enabled && settings.EnableSounds)
+            {
+                switch (changeType)
+                {
+                    case ChangeType.BuildCompleted:
+                    case ChangeType.BuildStarted:
+                        SystemSounds.Beep.Play();
+                        break;
+                    case ChangeType.BuildStatusChange:
+                        SystemSounds.Hand.Play();
+                        break;
+                    case ChangeType.MissingJob:
+                    case ChangeType.ErrorPollingServer:
+                    case ChangeType.ErrorPollingJob:
+                        SystemSounds.Asterisk.Play();
+                        break;
+                }
+
+            }
         }
 
         public MainWindow SettingsWindow;

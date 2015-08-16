@@ -44,7 +44,7 @@ namespace JenkinsObserver
             if (e.Key != Key.Enter)
                 return;
             var command = comboBox.SelectedItem as ConsoleCommands?;
-            if(command.HasValue)
+            if (command.HasValue)
                 RunCommand(command.Value);
             else if (comboBox.SelectedItem is string)
             {
@@ -61,8 +61,36 @@ namespace JenkinsObserver
             try
             {
                 output.Text = "";
+                ObserverSettings settings;
                 switch (command)
                 {
+                    case ConsoleCommands.NodeServer:
+                        await RunningApp.PollerService.Stop();
+                        settings = RunningApp.Data.Settings;
+
+                        settings.Servers.Add(new ObserverServer
+                        {
+                            Name = "Node JS",
+                            Url = "http://jenkins.nodejs.org/",
+                            Enabled = true,
+                        });
+
+                        RunningApp.Data.Settings = settings;
+                        RunningApp.OpenSettings();
+                        break;
+
+                    case ConsoleCommands.TestNotifications:
+                        settings = RunningApp.Data.Settings;
+                        var server = settings.Servers.FirstOrDefault() ?? new ObserverServer();
+                        var job = server.Jobs.FirstOrDefault() ?? new ObserverJob();
+                        foreach (var ct in Enum.GetValues(typeof (ChangeType)).Cast<ChangeType>())
+                        {
+                            output.Text += ct.ToString() + '\n';
+                            RunningApp.JobChanged(RunningApp.Poller, server, job, ct);
+                            await Task.Delay(10000);
+                        }
+                        break;
+
                     case ConsoleCommands.DeleteDatabase:
                         await RunningApp.PollerService.Stop();
                         RunningApp.Data.DeleteDatabase();
