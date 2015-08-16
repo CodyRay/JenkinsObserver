@@ -65,7 +65,7 @@ namespace Contracts
             return Task;
         }
 
-        public bool IsRunning { get { return !(Task.IsCanceled || Task.IsFaulted || Task.IsCompleted); } }
+        public bool IsRunning => !(Task.IsCanceled || Task.IsFaulted || Task.IsCompleted);
 
         public static TaskAsService<T> Create<T>(Func<CancellationToken, Task<T>> createTask, string name = null)
         {
@@ -138,6 +138,6 @@ namespace Contracts
             return Task;
         }
 
-        public bool IsRunning { get { return !(Task.IsCanceled || Task.IsFaulted || Task.IsCompleted); } }
+        public bool IsRunning => !(Task.IsCanceled || Task.IsFaulted || Task.IsCompleted);
     }
 }
