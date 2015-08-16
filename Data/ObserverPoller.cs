@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Data
 {
@@ -73,49 +74,71 @@ namespace Data
 
         public async Task PollServer(ObserverServer server, CancellationToken token)
         {
-            var serverOriginal = Clone(server);
             var serverDetail = await GetServerDetailAsync(server.Url, token);
-            Mapper.Map(serverDetail, server);
-            server.Jobs.Clear();
-            foreach (var j in serverDetail.Jobs)
+            Mapper.Map(serverDetail, server); //The Jobs will be handled manually below
+
+            #region Add New Jobs
+
+            foreach (var j in serverDetail.Jobs.Where(j => server.Jobs.All(job => job.Name != j.Name)))
             {
                 var jDetail = await GetJobDetailAsync(j.Url, token);
                 var jObserver = Mapper.Map<JobDetail, ObserverJob>(jDetail);
                 server.Jobs.Add(jObserver);
+                SendStatusChanged(jObserver, ChangeType.NewJobFound);
             }
-            CheckServerForChange(serverOriginal, server);
-        }
 
-        protected void CheckServerForChange(ObserverServer beforePoll, ObserverServer afterPoll)
-        {
-            //TODO: Overload Equals in Job, then get rid of all this weirdness
-            var beforeJobs = beforePoll.Jobs.ToDictionary(j => j.Name);
-            var afterJobs = afterPoll.Jobs.ToDictionary(j => j.Name);
-            foreach (var jName in afterJobs.Keys)
-            {
-                if (beforeJobs.ContainsKey(jName))
-                    CheckJobForChange(beforeJobs[jName], afterJobs[jName]);
-                else
-                    SendStatusChanged(afterJobs[jName], ChangeType.NewJobFound);
-            }
-            foreach (var jName in beforeJobs.Keys.Where(j => !afterJobs.ContainsKey(j)))
-            {
-                SendStatusChanged(beforeJobs[jName], ChangeType.MissingJob);
-            }
-        }
+            #endregion
 
-        protected void CheckJobForChange(ObserverJob oldJob, ObserverJob newJob)
-        {
-            //ChangeType.BuildCompleted;
-            if (oldJob.InProgress && !newJob.InProgress)
-                SendStatusChanged(oldJob, ChangeType.BuildCompleted);
-            //ChangeType.BuildStarted;
-            if (oldJob.InProgress && !newJob.InProgress)
-                SendStatusChanged(oldJob, ChangeType.BuildStarted);
-            //ChangeType.BuildStatusChange;
-            if (oldJob.WebColor != newJob.WebColor)
-                //Could use status, but this will exclude changes between the same color for us
-                SendStatusChanged(oldJob, ChangeType.BuildStatusChange);
+            #region Remove Missing Jobs
+
+            //Clone to prevent enumeration exception from removing element while enumerating
+            foreach (var j in Clone(server.Jobs).Where(j => serverDetail.Jobs.All(job => job.Name != j.Name)))
+            {
+                server.Jobs.Remove(server.Jobs.Single(job => job.Name == j.Name));
+                SendStatusChanged(j, ChangeType.MissingJob);
+            }
+
+            #endregion
+
+            //Now that they have the same number of elements, we can update ones that have their status changed
+#if DEBUG
+            Debug.Assert(server.Jobs.Count == serverDetail.Jobs.Count);
+#endif
+            foreach (var newDetailJob in serverDetail.Jobs)
+            {
+
+                var observerJob = server.Jobs.Single(j => j.Name == newDetailJob.Name);
+                var statusTuple = ObserverJob.GetJobsStatus(newDetailJob.Color);
+                var newStatus = statusTuple.Item1;
+                var newInProgress = statusTuple.Item2;
+
+                /*
+                 * Note that only one event will be fired for any of these, this greatly simplifies 
+                 * the behavior of this code. The downside is that BuildStatusChange is given the  
+                 * highest priority. i.e. if a build finishes AND the status changes only a 
+                 * BuildStatusChange will be fired
+                 */
+
+                ChangeType? changeType = null;
+                //ChangeType.BuildCompleted;
+                if (observerJob.InProgress && !newInProgress)
+                    changeType = ChangeType.BuildCompleted;
+
+                //ChangeType.BuildStarted;
+                if (!observerJob.InProgress && newInProgress)
+                    changeType = ChangeType.BuildStarted;
+
+                //ChangeType.BuildStatusChange;
+                if (observerJob.Status != newStatus)
+                    changeType = ChangeType.BuildStatusChange;
+
+                if (!changeType.HasValue)
+                    continue; //No need to poll the details of a job that hasn't changed
+
+                var job = await GetJobDetailAsync(newDetailJob.Url, token);
+                Mapper.Map(job, observerJob);
+                SendStatusChanged(observerJob, changeType.Value);
+            }
         }
 
         #region Methods
@@ -150,3 +173,4 @@ namespace Data
         #endregion Methods
     }
 }
+ 

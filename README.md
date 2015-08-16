@@ -4,7 +4,6 @@ This app is currently in an incomplete beta state, but you are free to [download
 
 ##TODO
 
- * When Ever Poll Starts, the Observable Collection is Cleared
  * Implement Proper Notifications
  * Implement Sounds
  * Make an Icon
