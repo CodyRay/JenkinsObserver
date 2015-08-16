@@ -33,14 +33,27 @@ namespace Data
             {
                 using (var context = ContextFactory.Create())
                 {
-                    Clear<ObserverJob>(context);
-                    Clear<ObserverServer>(context);
-                    Clear<ObserverSettings>(context);
+                    ClearData(context);
 
                     context.Settings.Add(value);
                     context.SaveChanges();
                 }
             }
+        }
+
+        public void ClearData()
+        {
+            using (var context = ContextFactory.Create())
+            {
+                ClearData(context);
+            }
+        }
+
+        private void ClearData(JenkinsObserverContext context)
+        {
+            Clear<ObserverJob>(context);
+            Clear<ObserverServer>(context);
+            Clear<ObserverSettings>(context);
         }
 
         public string SettingsAsJson
@@ -52,6 +65,14 @@ namespace Data
         private static void Clear<T>(DbContext context) where T : class
         {
             context.Set<T>().RemoveRange(context.Set<T>());
+        }
+
+        public void DeleteDatabase()
+        {
+            using (var context = ContextFactory.Create())
+            {
+                context.Database.Delete();
+            }
         }
     }
 }

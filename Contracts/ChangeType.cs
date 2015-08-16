@@ -6,6 +6,8 @@
         BuildStarted,
         BuildStatusChange,
         MissingJob,
-        NewJobFound
+        NewJobFound,
+        ErrorPollingServer,
+        ErrorPollingJob
     }
 }

@@ -3,10 +3,15 @@ using Data;
 using Gat.Controls;
 using System;
 using System.Reflection;
+using System.Security.Policy;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Forms;
+using System.Windows.Input;
 using System.Windows.Media;
 using ContextMenu = System.Windows.Forms.ContextMenu;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MenuItem = System.Windows.Forms.MenuItem;
 using NotifyIcon = System.Windows.Forms.NotifyIcon;
 
@@ -18,10 +23,10 @@ namespace JenkinsObserver
     public partial class App : System.Windows.Application
     {
         private NotifyIcon _notifyIcon;
-        protected ObserverSettings Settings { get; set; }
-        protected SettingsStorage Data { get; set; }
-        protected ObserverPoller Poller { get; set; }
-        protected TaskAsService PollerService { get; set; }
+        public ObserverSettings Settings { get; set; }
+        public SettingsStorage Data { get; set; }
+        public ObserverPoller Poller { get; set; }
+        public TaskAsService PollerService { get; set; }
 
         public App()
         {
@@ -80,7 +85,7 @@ namespace JenkinsObserver
 
             OpenSettings();
         }
-
+        
         private void OpenAbout(object sender = null, EventArgs e = null)
         {
             var version = typeof(App).Assembly.GetAssemblyAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
@@ -100,36 +105,51 @@ namespace JenkinsObserver
             about.Show();
         }
 
-        private void JobChanged(ObserverPoller poller, ObserverJob job, ChangeType changeType)
+        private void OpenConsole()
         {
-            _notifyIcon.ShowBalloonTip(2000, "JobChanged", $"Job: {job.DisplayName} is now {job.Status}", ToolTipIcon.Warning);
+            var console = new Console(this);
+            console.Show();
         }
 
-        private MainWindow _settings;
-
-        private async void OpenSettings(object sender = null, EventArgs e = null)
+        private void JobChanged(ObserverPoller poller, ObserverJob job, ChangeType changeType)
         {
-            if (_settings != null)
+            _notifyIcon.ShowBalloonTip(2000, changeType.ToString(), $"Job: {job?.DisplayName} is now {job?.Status}", ToolTipIcon.Warning);
+        }
+
+        public MainWindow SettingsWindow;
+
+        public async void OpenSettings(object sender = null, EventArgs e = null)
+        {
+            if (SettingsWindow != null)
             {
-                _settings.Focus();
+                SettingsWindow.Focus();
                 return;
             }
-            _settings = new MainWindow(Data, Poller);
+
+            var kc = new KonamiCodeStateMachine();
+            SettingsWindow = new MainWindow(Data, Poller);
+            SettingsWindow.KeyDown += (o, args) => kc.KeyPressed(args.Key);
 
             if (PollerService.IsRunning)
                 await PollerService.Stop();
 
-            _settings.ShowDialog(); //TODO: Win32Exception The Operation Completed Successfully
+            kc.KonamiCodeEntered += o =>
+            {
+                SettingsWindow.Close();
+                OpenConsole();
+            };
+
+            SettingsWindow.ShowDialog(); //TODO: Win32Exception The Operation Completed Successfully
 
             PollerService.Start();
             _notifyIcon.ShowBalloonTip(2000, "Jenkins Observer", "Polling in Background", ToolTipIcon.Info);
 
-            _settings = null;
+            SettingsWindow = null;
         }
 
         private async void AppStop(object sender, EventArgs e)
         {
-            _settings?.Close();
+            SettingsWindow?.Close();
 
             if (PollerService.IsRunning)
                 await PollerService.Stop();

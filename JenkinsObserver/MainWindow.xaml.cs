@@ -30,6 +30,8 @@ namespace JenkinsObserver
             }
         }
 
+        public bool HoldOpen { get; set; }
+
         public MainWindow(SettingsStorage data, ObserverPoller poller)
         {
             Data = data;
@@ -55,9 +57,7 @@ namespace JenkinsObserver
         private async void PollNow_Click(object sender, RoutedEventArgs e)
         {
             var fe = sender as FrameworkElement;
-            if (fe == null)
-                return;
-            var server = fe.DataContext as ObserverServer;
+            var server = (fe)?.DataContext as ObserverServer;
             if (server == null)
                 return;
             try
@@ -73,7 +73,8 @@ namespace JenkinsObserver
 
         private void Window_Deactivated(object sender, EventArgs e)
         {
-            Close(); //Don't ignore this window buddy!
+            if(!HoldOpen)
+                Close(); //Don't ignore this window buddy!
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)

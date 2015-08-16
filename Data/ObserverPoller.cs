@@ -74,15 +74,28 @@ namespace Data
 
         public async Task PollServer(ObserverServer server, CancellationToken token)
         {
-            var serverDetail = await GetServerDetailAsync(server.Url, token);
+            var serverDetail = await Request<ServerDetail>(server.Url, token);
+            if (serverDetail == null)
+            {
+                SendStatusChanged(null, ChangeType.ErrorPollingServer);
+                return;
+            }
+
             Mapper.Map(serverDetail, server); //The Jobs will be handled manually below
 
             #region Add New Jobs
 
-            foreach (var j in serverDetail.Jobs.Where(j => server.Jobs.All(job => job.Name != j.Name)))
+            foreach (var j in Clone(serverDetail.Jobs).Where(j => server.Jobs.All(job => job.Name != j.Name)))
             {
-                var jDetail = await GetJobDetailAsync(j.Url, token);
+                var jDetail = await Request<JobDetail>(j.Url, token);
+                if (jDetail == null)
+                {
+                    serverDetail.Jobs.RemoveAll(job => job.Name == j.Name);
+                    continue; //Note: I am unsure how this could ever happen
+                }
+
                 var jObserver = Mapper.Map<JobDetail, ObserverJob>(jDetail);
+                jObserver.Enabled = true; //By default assume that the user want so see notificications
                 server.Jobs.Add(jObserver);
                 SendStatusChanged(jObserver, ChangeType.NewJobFound);
             }
@@ -135,9 +148,16 @@ namespace Data
                 if (!changeType.HasValue)
                     continue; //No need to poll the details of a job that hasn't changed
 
-                var job = await GetJobDetailAsync(newDetailJob.Url, token);
-                Mapper.Map(job, observerJob);
-                SendStatusChanged(observerJob, changeType.Value);
+                var job = await Request<JobDetail>(newDetailJob.Url, token);
+                if (job != null)
+                {
+                    Mapper.Map(job, observerJob);
+                    SendStatusChanged(observerJob, changeType.Value);
+                }
+                else
+                {
+                    SendStatusChanged(observerJob, ChangeType.ErrorPollingJob);
+                }
             }
         }
 
@@ -148,26 +168,22 @@ namespace Data
             return JsonConvert.DeserializeObject<T>(JsonConvert.SerializeObject(server));
         }
 
-        protected Task<JobDetail> GetJobDetailAsync(string url, CancellationToken token)
+        private async Task<T> Request<T>(string url, CancellationToken token) where T : class
         {
-            var uri = new Uri(new Uri(url), "api/json");
-            return Request<JobDetail>(uri, token);
-        }
-
-        private async Task<T> Request<T>(Uri uri, CancellationToken token) where T : class
-        {
-            using (var client = new HttpClient())
+            try
             {
-                var response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, uri), token);
-                var text = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<T>(text);
+                var uri = new Uri(new Uri(url), "api/json");
+                using (var client = new HttpClient())
+                {
+                    var response = await client.SendAsync(new HttpRequestMessage(HttpMethod.Get, uri), token);
+                    var text = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<T>(text);
+                }
             }
-        }
-
-        protected Task<ServerDetail> GetServerDetailAsync(string url, CancellationToken token)
-        {
-            var uri = new Uri(new Uri(url), "api/json");
-            return Request<ServerDetail>(uri, token);
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         #endregion Methods
