@@ -4,7 +4,7 @@ This app is currently in an incomplete beta state, but you are free to [download
 
 ##TODO
 
- * Persisting state for server/jobs not workings...
+ * When Ever Poll Starts, the Observable Collection is Cleared
  * Implement Proper Notifications
  * Implement Sounds
  * Make an Icon
@@ -12,6 +12,5 @@ This app is currently in an incomplete beta state, but you are free to [download
    * Specifically Entering a bad url on the settings shouldn't crash the program
  * The poll now button should change to a cancel button
    * When the window is closed it should cancel all automatically
- * Status colours don't work
  * Confirm auto updates workings
  * No way to remove servers

@@ -1,7 +1,7 @@
 ﻿<#@ template debug="true" hostspecific="true" language="C#" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="$(ProjectDir)bin\Debug\Newtonsoft.Json.dll" #>
-<#@ assembly name="$(ProjectDir)bin\Debug\Contracts.dll" #>
+<#@ assembly name="$(ProjectDir)..\Data\bin\Debug\Newtonsoft.Json.dll" #>
+<#@ assembly name="$(ProjectDir)..\Data\bin\Debug\Contracts.dll" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Reflection" #>
 <#@ import namespace="System.Text" #>

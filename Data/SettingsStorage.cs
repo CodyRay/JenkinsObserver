@@ -1,8 +1,9 @@
-﻿using Contracts;
-using System.Data.Common;
+﻿using System.Data.Entity;
+using Contracts;
 using System.Data.Entity.SqlServerCompact;
 using System.Data.SqlServerCe;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Data
 {
@@ -23,6 +24,8 @@ namespace Data
                 using (var context = ContextFactory.Create())
                 {
                     return context.Settings
+                        .Include("Servers")
+                        .Include("Servers.Jobs")
                         .SingleOrDefault() ?? ObserverSettings.DefaultSettings;
                 }
             }
@@ -40,7 +43,13 @@ namespace Data
             }
         }
 
-        private void Clear<T>(JenkinsObserverContext context) where T : class
+        public string SettingsAsJson
+        {
+            get { return JsonConvert.SerializeObject(Settings); }
+            set { Settings = JsonConvert.DeserializeObject<ObserverSettings>(value); }
+        }
+
+        private static void Clear<T>(DbContext context) where T : class
         {
             context.Set<T>().RemoveRange(context.Set<T>());
         }

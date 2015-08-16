@@ -7,23 +7,17 @@ namespace Contracts
     [ImplementPropertyChanged]
     public class ObserverSettings
     {
-        public static ObserverSettings DefaultSettings
+        public static ObserverSettings DefaultSettings => new ObserverSettings
         {
-            get
-            {
-                return new ObserverSettings
-                {
-                    EnableNotifications = true,
-                    EnableSounds = true,
+            EnableNotifications = true,
+            EnableSounds = true,
 #if DEBUG
-                    PollingPeriod = 10000, //10 Sec
+            PollingPeriod = 10000, //10 Sec
 #else
                 PollingPeriod = 300000, //5 Minutes
 #endif
-                    AlertOnChangesOnly = false,
-                };
-            }
-        }
+            AlertOnChangesOnly = false,
+        };
 
         [Key]
         public long Id { get; set; }

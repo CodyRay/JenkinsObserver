@@ -21,8 +21,8 @@ namespace Data
             Mapper.CreateMap<JobDetail, ObserverJob>()
                 .ForMember(j => j.Id, e => e.Ignore())
                 .ForMember(j => j.Enabled, e => e.Ignore())
-                .ForMember(j => j.Status, e => e.Ignore())
-                .ForMember(j => j.InProgress, e => e.Ignore());
+                .ForMember(j => j.Status, e => e.ResolveUsing(d => ObserverJob.GetJobsStatus(d.Color).Item1))
+                .ForMember(j => j.InProgress, e => e.ResolveUsing(d => ObserverJob.GetJobsStatus(d.Color).Item2));
             Mapper.CreateMap<ServerDetail, ObserverServer>()
                 .ForMember(s => s.Jobs, e => e.Ignore())
                 .ForMember(s => s.Id, e => e.Ignore())
@@ -41,10 +41,7 @@ namespace Data
 
         private void SendStatusChanged(ObserverJob job, ChangeType change)
         {
-            if (JobChanged != null)
-            {
-                JobChanged(this, job, change);
-            }
+            JobChanged?.Invoke(this, job, change);
         }
 
         public async Task Run(CancellationToken token)
