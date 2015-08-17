@@ -6,6 +6,5 @@ This app is currently in an incomplete beta state, but you are free to [download
 
  * Implement Proper Notifications
  * Implement Proper Sounds
- * Make an Icon
  * Confirm auto updates workings
  * No way to disable servers

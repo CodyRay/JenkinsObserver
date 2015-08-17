@@ -95,7 +95,7 @@ namespace JenkinsObserver
             var repoUrl = new Uri("https://github.com/haroldhues/JenkinsObserver/");
             var about = new About()
             {
-                AdditionalNotes = "Jenkins Obsever is Licensed Under the MIT License. This application will also attempt to update itself on startup.",
+                AdditionalNotes = "Jenkins Obsever is Licensed Under the MIT License. Application Icon: 'Binoculars' by Mourad Mokrane from the Noun Project, licensed under Creative Commons Attribution 3.0 License",
                 ApplicationLogo = image,
                 PublisherLogo = image,
                 Hyperlink = repoUrl,

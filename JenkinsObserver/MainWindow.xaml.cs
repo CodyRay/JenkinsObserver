@@ -99,6 +99,7 @@ namespace JenkinsObserver
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             Settings = Data.Settings;
+            Icon = Properties.Resources.appIcon.ToImageSource();
         }
 
         private void Visit_Click(object sender, RoutedEventArgs e)

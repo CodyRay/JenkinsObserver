@@ -37,6 +37,7 @@ namespace JenkinsObserver
         public void Console_OnLoaded(object sender, RoutedEventArgs e)
         {
             comboBox.ItemsSource = Enum.GetValues(typeof(ConsoleCommands)).Cast<ConsoleCommands>();
+            Icon = Properties.Resources.appIcon.ToImageSource();
         }
 
         private void Console_OnKeyDown(object sender, KeyEventArgs e)

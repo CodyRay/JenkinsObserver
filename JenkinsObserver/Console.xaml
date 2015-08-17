@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:JenkinsObserver"
         xmlns:System="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Console" Height="300" Width="300" Loaded="Console_OnLoaded" KeyDown="Console_OnKeyDown">
+        Title="Development Console" Height="300" Width="300" Loaded="Console_OnLoaded" KeyDown="Console_OnKeyDown">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Settings" Height="432" Width="700" d:DataContext="{d:DesignData Source=ObserverSettingsSampleData.xaml}" Deactivated="Window_Deactivated" Closing="MainWindow_OnClosing" Loaded="MainWindow_OnLoaded">
+        Title="Jenkins Observer Settings" Height="432" Width="700" d:DataContext="{d:DesignData Source=ObserverSettingsSampleData.xaml}" Deactivated="Window_Deactivated" Closing="MainWindow_OnClosing" Loaded="MainWindow_OnLoaded">
     <Window.Resources>
         <!-- This style is used for buttons, to remove the WPF default 'animated' mouse over effect -->
         <Style x:Key="MyButtonStyle" TargetType="Button">
