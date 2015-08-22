@@ -15,9 +15,6 @@ namespace Contracts
             AlertOnChangesOnly = false,
         };
 
-        [Key]
-        public long Id { get; set; }
-
         public ObservableCollection<ObserverServer> Servers { get; set; }
         public bool EnableNotifications { get; set; }
         public bool EnableSounds { get; set; }

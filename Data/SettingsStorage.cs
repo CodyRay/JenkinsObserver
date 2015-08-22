@@ -1,78 +1,68 @@
-﻿using System.Data.Entity;
+﻿using System;
 using Contracts;
-using System.Data.Entity.SqlServerCompact;
-using System.Data.SqlServerCe;
+using System.IO;
 using System.Linq;
+using System.Text;
 using Newtonsoft.Json;
 
 namespace Data
 {
     public class SettingsStorage
     {
-        private void CompilerTrick()
-        {
-            AddOption.CreateDatabase.HasFlag(AddOption.ExistingDatabase);
-            SqlCeFunctions.Pi();
-        }
-
-        internal JenkinsContextFactory ContextFactory { get; } = new JenkinsContextFactory();
-
         public ObserverSettings Settings
         {
-            get
-            {
-                using (var context = ContextFactory.Create())
-                {
-                    return context.Settings
-                        .Include("Servers")
-                        .Include("Servers.Jobs")
-                        .SingleOrDefault() ?? ObserverSettings.DefaultSettings;
-                }
-            }
-            set
-            {
-                using (var context = ContextFactory.Create())
-                {
-                    ClearData(context);
-
-                    context.Settings.Add(value);
-                    context.SaveChanges();
-                }
-            }
+            get { return JsonConvert.DeserializeObject<ObserverSettings>(SettingsAsJson); }
+            set { SettingsAsJson = JsonConvert.SerializeObject(value, Formatting.Indented); }
         }
 
-        public void ClearData()
+        public void Delete()
         {
-            using (var context = ContextFactory.Create())
-            {
-                ClearData(context);
-            }
-        }
-
-        private void ClearData(JenkinsObserverContext context)
-        {
-            Clear<ObserverJob>(context);
-            Clear<ObserverServer>(context);
-            Clear<ObserverSettings>(context);
+            throw new NotImplementedException();
         }
 
         public string SettingsAsJson
         {
-            get { return JsonConvert.SerializeObject(Settings, Formatting.Indented); }
-            set { Settings = JsonConvert.DeserializeObject<ObserverSettings>(value); }
+            get { return FromFile(); }
+            set { ToFile(value); }
         }
 
-        private static void Clear<T>(DbContext context) where T : class
-        {
-            context.Set<T>().RemoveRange(context.Set<T>());
-        }
+        public virtual string SettingsFile => "JenkinsObserverSettings.json";
 
-        public void DeleteDatabase()
+        /* http://stackoverflow.com/a/19840148/2899390
+         * UnauthorizedAccessException 
+         * IOException
+         * FileNotFoundException
+         * DirectoryNotFoundException
+         * PathTooLongException
+         * NotSupportedException
+         * SecurityException
+         * ArgumentException
+         * 
+         * Most Important to Catch:
+         * IOException                 //Several above derive from here
+         * NotSupportedException       //Path is not in a valid format
+         * UnauthorizedAccessException
+         */
+
+        private string FromFile()
         {
-            using (var context = ContextFactory.Create())
+            try
             {
-                context.Database.Delete();
+                return File.ReadAllText(SettingsFile, Encoding.UTF8);
             }
+            catch (FileNotFoundException)
+            {
+                //Under the hoods the default settings will be serialized and written to the file
+                //If this throws an exception, something is wrong and we won't handle it
+                Settings = ObserverSettings.DefaultSettings;
+                //Pull it back out, if the exception happens something is horible and we won't deal with it
+                return File.ReadAllText(SettingsFile, Encoding.UTF8);
+            }
+        }
+
+        private void ToFile(string json)
+        {
+            File.WriteAllText(SettingsFile, json, Encoding.UTF8);
         }
     }
 }

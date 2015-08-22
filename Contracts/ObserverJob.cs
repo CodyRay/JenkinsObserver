@@ -7,9 +7,6 @@ namespace Contracts
     [ImplementPropertyChanged]
     public class ObserverJob
     {
-        [Key]
-        public long Id { get; set; }
-
         public bool Enabled { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

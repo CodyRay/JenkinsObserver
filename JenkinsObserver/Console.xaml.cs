@@ -92,19 +92,14 @@ namespace JenkinsObserver
                         }
                         break;
 
-                    case ConsoleCommands.DeleteDatabase:
-                        await RunningApp.PollerService.Stop();
-                        RunningApp.Data.DeleteDatabase();
-                        break;
-
                     case ConsoleCommands.GetSettingsJson:
                         await RunningApp.PollerService.Stop();
                         output.Text = RunningApp.Data.SettingsAsJson;
                         break;
 
-                    case ConsoleCommands.ClearDatabase:
+                    case ConsoleCommands.DeleteSettings:
                         await RunningApp.PollerService.Stop();
-                        RunningApp.Data.ClearData();
+                        RunningApp.Data.Delete();
                         break;
 
                     case ConsoleCommands.Settings:

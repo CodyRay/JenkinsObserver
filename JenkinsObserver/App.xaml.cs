@@ -3,6 +3,7 @@ using Data;
 using Gat.Controls;
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Media;
 using System.Reflection;
 using System.Security.Policy;
@@ -15,6 +16,7 @@ using System.Windows.Media;
 using ContextMenu = System.Windows.Forms.ContextMenu;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 using MenuItem = System.Windows.Forms.MenuItem;
+using MessageBox = System.Windows.MessageBox;
 using NotifyIcon = System.Windows.Forms.NotifyIcon;
 
 namespace JenkinsObserver
@@ -25,6 +27,7 @@ namespace JenkinsObserver
     public partial class App : System.Windows.Application
     {
         private NotifyIcon _notifyIcon;
+        public string AppVersion = typeof(App).Assembly.GetAssemblyAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
         public ObserverSettings Settings { get; set; }
         public SettingsStorage Data { get; set; }
         public ObserverPoller Poller { get; set; }
@@ -40,6 +43,18 @@ namespace JenkinsObserver
 
         private void AppStart(object sender, StartupEventArgs e)
         {
+            Uri uri;
+            if (ApplicationUpdate.IsAvailable(new Uri("https://api.github.com/repos/haroldhues/JenkinsObserver/releases"), AppVersion, out uri))
+            {
+                if (
+                    MessageBox.Show("Updates are available, would you like to upgrade?", "Update Available",
+                        MessageBoxButton.YesNo, MessageBoxImage.Asterisk) == MessageBoxResult.Yes)
+                {
+                    Process.Start(uri.ToString()); //Open in browser
+                    Shutdown(); //Kill Jenkins Observer
+                }
+            }
+
             ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             #region TrayIcon
@@ -90,7 +105,6 @@ namespace JenkinsObserver
         
         private void OpenAbout(object sender = null, EventArgs e = null)
         {
-            var version = typeof(App).Assembly.GetAssemblyAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion;
             var image = JenkinsObserver.Properties.Resources.appIcon.ToImageSource();
             var repoUrl = new Uri("https://github.com/haroldhues/JenkinsObserver/");
             var about = new About()
@@ -102,7 +116,7 @@ namespace JenkinsObserver
                 Publisher = "Cody Ray Hoeft",
                 HyperlinkText = repoUrl.ToString(),
                 IsSemanticVersioning = false,
-                Version = version
+                Version = AppVersion
             };
             about.Show();
         }

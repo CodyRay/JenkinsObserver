@@ -2,8 +2,7 @@
 {
     public enum ConsoleCommands
     {
-        ClearDatabase,
-        DeleteDatabase,
+        DeleteSettings,
         GetSettingsJson,
         Settings,
         PollerRunning,

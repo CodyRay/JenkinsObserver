@@ -20,13 +20,11 @@ namespace Data
         static ObserverPoller()
         {
             Mapper.CreateMap<JobDetail, ObserverJob>()
-                .ForMember(j => j.Id, e => e.Ignore())
                 .ForMember(j => j.Enabled, e => e.Ignore())
                 .ForMember(j => j.Status, e => e.ResolveUsing(d => ObserverJob.GetJobsStatus(d.Color).Item1))
                 .ForMember(j => j.InProgress, e => e.ResolveUsing(d => ObserverJob.GetJobsStatus(d.Color).Item2));
             Mapper.CreateMap<ServerDetail, ObserverServer>()
                 .ForMember(s => s.Jobs, e => e.Ignore())
-                .ForMember(s => s.Id, e => e.Ignore())
                 .ForMember(s => s.Enabled, e => e.Ignore())
                 .ForMember(s => s.Name, e => e.Ignore())
                 .ForMember(s => s.Url, e => e.ResolveUsing(s => s.PrimaryView.Url));
