@@ -5,6 +5,4 @@
  * Implement Proper Notifications
  * Implement Proper Sounds
  * Confirm auto updates workings
- * No way to disable servers
  * Clicking on Notification should go to server page
- * Should Ignore Task Cancel Exceptions when polling...
