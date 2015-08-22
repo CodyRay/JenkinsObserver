@@ -25,7 +25,7 @@ namespace Data
                 .ForMember(j => j.InProgress, e => e.ResolveUsing(d => ObserverJob.GetJobsStatus(d.Color).Item2));
             Mapper.CreateMap<ServerDetail, ObserverServer>()
                 .ForMember(s => s.Jobs, e => e.Ignore())
-                .ForMember(s => s.Enabled, e => e.Ignore())
+                .ForMember(s => s.Healthy, e => e.Ignore())
                 .ForMember(s => s.Name, e => e.Ignore())
                 .ForMember(s => s.Url, e => e.ResolveUsing(s => s.PrimaryView.Url));
             Mapper.AssertConfigurationIsValid();
@@ -79,9 +79,12 @@ namespace Data
             var serverDetail = await Request<ServerDetail>(server.Url, token);
             if (serverDetail == null)
             {
-                SendStatusChanged(server, null, ChangeType.ErrorPollingServer);
+                if (server.Healthy) //Show only one message if this happens alot
+                    SendStatusChanged(server, null, ChangeType.ErrorPollingServer);
+                server.Healthy = false;
                 return;
             }
+            server.Healthy = true;
 
             Mapper.Map(serverDetail, server); //The Jobs will be handled manually below
 
@@ -191,4 +194,3 @@ namespace Data
         #endregion Methods
     }
 }
- 

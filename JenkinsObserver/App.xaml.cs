@@ -130,7 +130,7 @@ namespace JenkinsObserver
         public void JobChanged(ObserverPoller poller, ObserverServer server, ObserverJob job, ChangeType changeType)
         {
             var settings = Data.Settings;
-            var enabled = (server?.Enabled ?? true) && (job?.Enabled ?? true);
+            var enabled = (server?.Healthy ?? true) && (job?.Enabled ?? true);
             switch (changeType)
             {
                 case ChangeType.BuildCompleted:

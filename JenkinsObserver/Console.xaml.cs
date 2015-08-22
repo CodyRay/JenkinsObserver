@@ -73,7 +73,7 @@ namespace JenkinsObserver
                         {
                             Name = "Node JS",
                             Url = "http://jenkins.nodejs.org/",
-                            Enabled = true,
+                            Healthy = true,
                         });
 
                         RunningApp.Data.Settings = settings;

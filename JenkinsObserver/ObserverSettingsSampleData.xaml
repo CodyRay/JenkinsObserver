@@ -1,7 +1,7 @@
 ﻿<c:ObserverSettings xmlns:c="clr-namespace:Contracts;assembly=Contracts">
   <c:ObserverSettings.Servers>
     <c:ObserverServer>
-      <c:ObserverServer.Enabled>True</c:ObserverServer.Enabled>
+      <c:ObserverServer.Healthy>True</c:ObserverServer.Healthy>
       <c:ObserverServer.Name>Node JS</c:ObserverServer.Name>
       <c:ObserverServer.Url>http://jenkins.nodejs.org/</c:ObserverServer.Url>
       <c:ObserverServer.Jobs>

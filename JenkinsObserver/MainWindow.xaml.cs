@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,7 +33,7 @@ namespace JenkinsObserver
             }
         }
 
-        public bool HoldOpen { get; set; }
+        public bool HoldOpen => Settings.Servers.Any(s => !s.ValidUrl);
 
         public MainWindow(SettingsStorage data, ObserverPoller poller)
         {
@@ -47,7 +48,7 @@ namespace JenkinsObserver
             {
                 Name = "New Server",
                 Url = @"http://example.com/",
-                Enabled = true,
+                Healthy = true,
             });
         }
 
